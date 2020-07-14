@@ -34,6 +34,7 @@ class FriendsList extends React.Component {
         this.setState({
             ...this.state,
             newFriend: {
+                ...this.state.newFriend,
                 [e.target.name]: e.target.value
             }
         })
@@ -43,9 +44,19 @@ class FriendsList extends React.Component {
         e.preventDefault();
 
         axiosWithAuth()
-            .post('http://localhost:5000/api/friends', this.state.newFriend)
+            .post('/friends', this.state.newFriend)
             .then(res => {
-                console.log(res.data);
+                // console.log("kim", res.data);
+                this.setState({
+                    friends: res.data,
+                    newFriend: {
+                        id: Date.now(),
+                        name: '',
+                        age: '',
+                        email: ''
+                    }
+                })
+                
             })
     }
 
@@ -55,9 +66,9 @@ class FriendsList extends React.Component {
                 <h1>These are my friends!</h1>
                 {this.state.friends.map(friend => {
                     return <div className="friend">
-                            <h3>{friend.name}</h3>
-                            <h3>{friend.age}</h3>
-                            <h3>{friend.email}</h3>
+                            <h4>{friend.name}</h4>
+                            <p>{friend.age}</p>
+                            <p>{friend.email}</p>
                            </div>
                 })}
 

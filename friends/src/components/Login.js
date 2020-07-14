@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 class Login extends React.Component {
-    state ={
+    state = {
         credentials: {
             username: "",
             password: ""
@@ -29,7 +29,7 @@ class Login extends React.Component {
                 console.log(res);
                 localStorage.setItem('token', res.data.payload);
                 // redirect to friends list page
-                this.props.history.push('/friends')
+                this.props.history.push("/friends");
             })
             .catch(err => console.log({ err }));
     }
